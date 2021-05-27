@@ -3,7 +3,7 @@
  * CLIC website software
  *
  * URL mount points are relative to the base URL (i.e. URL defined at
- * {@link config.ts} as config.url is root mount point "/")
+ * {@link config.ts} as config.url is root mount point '/')
  *
  * @author  Alexandre CHAU
  */
@@ -18,13 +18,13 @@ import { newsRouter } from './components/news/news-router'
 import { galleryRouter } from './components/gallery/gallery-router'
 import { newsPage } from './pages/news/news-page'
 import { aboutPage } from './pages/about/about-page'
-import { icbdPage } from './pages/icbd/icbd-page'
 import { coachingPage } from './pages/coaching/coaching-page'
 import { coachingListRouter } from './pages/coaching/coaching-router'
 import { eventsPage } from './pages/events/events-page'
+import { eventRouter } from './pages/events/event-router'
 import { notFoundPage } from './pages/404/404-page'
-import { commissionRouter } from './pages/commissions/commission-router'
 import { commissionsPage } from './pages/commissions/commissions-page'
+import { commissionRouter } from './pages/commissions/commission-router'
 
 /** Fresh router instance */
 const router = express.Router()
@@ -45,16 +45,11 @@ router.get('/about', aboutPage.render)
 router.get('/news', newsPage.render)
 
 /**
- * IC Boost day
- */
-router.get(['/icbd', '/icboostday', '/events/icbd'], icbdPage.render)
-
-/**
  * Coaching page
  */
 router.get('/coaching', coachingPage.render)
 
-router.get("/commissions", commissionsPage.render)
+router.get('/commissions', commissionsPage.render)
 
 /**
  * Events page
@@ -67,10 +62,10 @@ router.get('/events', eventsPage.render)
  * relative to the /sponsors mount point
  *
  * @example
- * Route defined at "/foo" in components/sponsors/sponsors-router.ts will be
- * mounted at final URL "/sponsors/foo"
+ * Route defined at '/foo' in components/sponsors/sponsors-router.ts will be
+ * mounted at final URL '/sponsors/foo'
  */
-router.use("/sponsors", sponsorsRouter)
+router.use('/sponsors', sponsorsRouter)
 
 /**
  * Committee router
@@ -78,10 +73,10 @@ router.use("/sponsors", sponsorsRouter)
  * relative to the /committee mount point
  *
  * @example
- * Route defined at "/foo" in components/committee/committee-router.ts will be
- * mounted at final URL "/committee/foo"
+ * Route defined at '/foo' in components/committee/committee-router.ts will be
+ * mounted at final URL '/committee/foo'
  */
-router.use("/committee", committeeRouter)
+router.use('/committee', committeeRouter)
 
 /**
  * News router
@@ -89,10 +84,10 @@ router.use("/committee", committeeRouter)
  * to the /news mount point
  *
  * @example
- * Route defined at "/foo" in components/news/news-router.ts will be mounted
- * at final URL "/news/foo"
+ * Route defined at '/foo' in components/news/news-router.ts will be mounted
+ * at final URL '/news/foo'
  */
-router.use("/news", newsRouter)
+router.use('/news', newsRouter)
 
 /**
  * Gallery router
@@ -100,49 +95,51 @@ router.use("/news", newsRouter)
  * relative to the /gallery mount point
  *
  * @example
- * Route defined at "/foo" in components/gallery/gallery-router.ts will be
- * mounted at final URL "/gallery/foo"
+ * Route defined at '/foo' in components/gallery/gallery-router.ts will be
+ * mounted at final URL '/gallery/foo'
  */
-router.use("/gallery", galleryRouter)
+router.use('/gallery', galleryRouter)
 
-router.use("/coaching", coachingListRouter)
+router.use('/coaching', coachingListRouter)
 
-router.use("/commissions", commissionRouter)
+router.use('/commissions', commissionRouter)
+
+router.use('/events', eventRouter)
 
 /**
  * Compiled assets (styles, JS scripts, ...)
  * Local links relative to root of project
- * The following mounts generated assets in "dist/static" to "/static"
+ * The following mounts generated assets in 'dist/static' to '/static'
  *
  * @example
- * File "src/sass/style.sass" is compiled into "dist/static/style.css" and
- * hence mounted at URL "/static/style.css"
+ * File 'src/sass/style.sass' is compiled into 'dist/static/style.css' and
+ * hence mounted at URL '/static/style.css'
  */
 router.use('/static', express.static('dist/static/'))
 
 /**
  * Vendor libraries assets (downloaded distributable files)
  * Local links relative to root of project
- * The following mounts vendor assets in folder "vendor" to "/vendor"
+ * The following mounts vendor assets in folder 'vendor' to '/vendor'
  *
  * @example
- * Library file downloaded into "vendor/foo.js" is mounted at URL
- * "/vendor/foo.js"
+ * Library file downloaded into 'vendor/foo.js' is mounted at URL
+ * '/vendor/foo.js'
  */
 router.use('/vendor', express.static('vendor/'))
 
 /**
  * Other static assets (images, files, general assets, ...)
  * Local links relative to root of project
- * The following mounts general assets in folder "assets/" to "/"
+ * The following mounts general assets in folder 'assets/' to '/'
  *
  * @example
- * Asset "assets/foo.png" is mounted at URL "/foo.png"
+ * Asset 'assets/foo.png' is mounted at URL '/foo.png'
  *
- * @warning "assets/img/logo.png" MUST be kept at URL "/img/logo.png" even if it
+ * @warning 'assets/img/logo.png' MUST be kept at URL '/img/logo.png' even if it
  * requires adding an additional routing rule to preserve it!
  */
-router.use("/", express.static('assets/'))
+router.use('/', express.static('assets/'))
 
 /**
  * Sitemap automatic generation
